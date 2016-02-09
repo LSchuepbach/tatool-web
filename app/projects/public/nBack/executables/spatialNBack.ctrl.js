@@ -45,6 +45,7 @@ tatool
     $scope.clickButton = function(input, timing, event) {
       service.inputService.disable();
       service.timerDisplay.stop();
+      service.timerreaction.stop();
 	  service.mainGridService.clear().refresh();
       service.processResponse(parseInt(input.givenResponse), timing).then(function() {
         service.stopExecution();
