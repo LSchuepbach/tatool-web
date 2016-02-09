@@ -21,6 +21,8 @@ tatool
       this.displayDuration = (this.displayDuration ) ? this.displayDuration : DISPLAY_DURATION_DEFAULT;
       this.timerDisplay = timerUtils.createTimer(this.displayDuration, false, this);
 
+      this.timerreaction = timerUtils.createTimer(this.maxDuration, true, this);
+
       //N Back (by how much?)
       this.n = (this.n) ? this.n : N_BACK;
 
