@@ -1,0 +1,19 @@
+.spatialNBack_emptyCell, .spatialNBack_emptyCellStatic {
+  font-size: 300%;
+  background-color: transparent;
+  border: 1px solid #999;
+  display: table-cell;
+  vertical-align: middle;
+  margin: 0;
+  padding: 5px;
+  outline: 0px solid #999;
+}
+.spatialNBack_fillCell, .spatialNBack_fillCellStatic {
+  font-size: 300%;
+  background-color: #0073cf;
+  border: 1px solid #0073cf;
+  display: table-cell;
+  vertical-align: middle;
+  margin: 0;
+  padding: 5px;
+}
