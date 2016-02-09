@@ -18,7 +18,7 @@ tatool
       this.inputService = inputServiceFactory.createService(this.stimuliPath);
 
       // timing properties
-      this.displayDuration = DISPLAY_DURATION_DEFAULT;
+      this.displayDuration = (this.displayDuration ) ? this.displayDuration : DISPLAY_DURATION_DEFAULT;
       this.timerDisplay = timerUtils.createTimer(this.displayDuration, false, this);
 
       // prepare stimuli history
@@ -29,7 +29,7 @@ tatool
     SpatialNBack.prototype.createStimulus = function() {
       this.trial = {};
 
-      var stimulusType = getRandomStimulusType();
+      var stimulusType = this.getRandomStimulusType();
 
       // set stimulusType to type 'start' until valid number of stimuli have been shown
       if (this.stimuliHistory.length < (N_BACK)) {
@@ -75,20 +75,20 @@ tatool
 
       // update stimuli history
       this.stimuliHistory.unshift(gridPosition);
-      if (this.stimuliHistory.length > N_BACK+1) {
+      if (this.stimuliHistory.length > this.n +1) {
         this.stimuliHistory.pop(gridPosition);
       }
     };
 
     // generate pseudo-random stimulusType (probability 50% missmatch, 33% match, 17% lure)
-    function getRandomStimulusType() {
+    SpatialNBack.prototype.getRandomStimulusType = function() {
       var weightedTypes = ['missmatch', 'missmatch', 'missmatch', 'match', 'match', 'lure'];
       var idx = Math.floor(Math.random() * weightedTypes.length);
       return weightedTypes[idx];
-    }
+    };
 
-    SpatialNBack.prototype.processResponse = function(givenResponse) {
-
+    SpatialNBack.prototype.processResponse = function(givenResponse, timing) {
+        return dbUtils.saveTrial(this.trial);
     };
 
     SpatialNBack.prototype.stopExecution = function() {
