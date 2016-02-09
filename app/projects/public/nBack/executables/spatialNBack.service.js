@@ -21,6 +21,17 @@ tatool
       this.displayDuration = (this.displayDuration ) ? this.displayDuration : DISPLAY_DURATION_DEFAULT;
       this.timerDisplay = timerUtils.createTimer(this.displayDuration, false, this);
 
+      //N Back (by how much?)
+      this.n = (this.n) ? this.n : N_BACK;
+
+      //Probabilities
+      if (this.n > 1) {
+          this.weightedTypes = ['missmatch', 'missmatch', 'missmatch', 'match', 'match', 'lure'];
+      } else {
+          this.weightedTypes = ['missmatch', 'missmatch', 'missmatch', 'match', 'match'];
+      }
+
+
       // prepare stimuli history
       this.stimuliHistory = new Array();
     };
@@ -32,7 +43,7 @@ tatool
       var stimulusType = this.getRandomStimulusType();
 
       // set stimulusType to type 'start' until valid number of stimuli have been shown
-      if (this.stimuliHistory.length < (N_BACK)) {
+      if (this.stimuliHistory.length < (this.n)) {
         stimulusType = 'start';
       }
 
@@ -50,10 +61,10 @@ tatool
           }
           break;
         case 'match':
-          gridPosition = this.stimuliHistory[N_BACK - 1];
+          gridPosition = this.stimuliHistory[this.n - 1];
           break;
         case 'lure':
-          gridPosition = this.stimuliHistory[executableUtils.getRandomInt(0,1) * N_BACK];
+          gridPosition = this.stimuliHistory[executableUtils.getRandomInt(0,1) * this.n];
           break;
         case 'start':
           gridPosition = executableUtils.getRandomInt(1, 9);
@@ -83,9 +94,8 @@ tatool
 
     // generate pseudo-random stimulusType (probability 50% missmatch, 33% match, 17% lure)
     SpatialNBack.prototype.getRandomStimulusType = function() {
-      var weightedTypes = ['missmatch', 'missmatch', 'missmatch', 'match', 'match', 'lure'];
-      var idx = Math.floor(Math.random() * weightedTypes.length);
-      return weightedTypes[idx];
+      var idx = Math.floor(Math.random() * this.weightedTypes.length);
+      return this.weightedTypes[idx];
     };
 
     SpatialNBack.prototype.processResponse = function(givenResponse, timing) {
