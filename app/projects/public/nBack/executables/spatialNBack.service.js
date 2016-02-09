@@ -62,6 +62,7 @@ tatool
       }
 
       this.trial.stimulusType = stimulusType;
+      this.trial.gridPosition = gridPosition;
       this.trial.correctResponse = (stimulusType === 'match') ? 1 : 0;
 
       this.cellData = {};
@@ -88,6 +89,9 @@ tatool
     };
 
     SpatialNBack.prototype.processResponse = function(givenResponse, timing) {
+        this.trial.reactionTime = timing - this.startTime;
+        this.trial.givenResponse = givenResponse;
+        this.trial.score = this.trial.correctResponse == givenResponse;
         return dbUtils.saveTrial(this.trial);
     };
 
