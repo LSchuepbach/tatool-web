@@ -10,7 +10,10 @@ tatool
     // start execution
     $scope.start = function() {
       service.mainGridService.show();
-      service.inputService.show();
+      service.inputService.enable();
+      if (service.showKeys.propertyValue === true) {
+        service.inputService.show();
+      }
 
       service.createStimulus();
 
@@ -33,7 +36,7 @@ tatool
       service.inputService.disable();
       service.timerDisplay.stop();
 	  service.mainGridService.clear().refresh();
-      service.processResponse(parseInt(input.givenResponse), timing).then(function() { 
+      service.processResponse(parseInt(input.givenResponse), timing).then(function() {
         service.stopExecution();
       });
     };

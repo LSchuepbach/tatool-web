@@ -31,6 +31,11 @@ tatool
           this.weightedTypes = ['missmatch', 'missmatch', 'missmatch', 'match', 'match'];
       }
 
+      if (!this.showKeys) {
+        this.showKeys = { propertyValue: true };
+      } else {
+        this.showKeys.propertyValue = (this.showKeys.propertyValue === true) ? true : false;
+      }
 
       // prepare stimuli history
       this.stimuliHistory = new Array();
