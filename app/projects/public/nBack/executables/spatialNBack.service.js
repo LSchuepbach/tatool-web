@@ -30,7 +30,7 @@ tatool
       this.trial = {};
 
       var stimulusType = getRandomStimulusType();
-      
+
       // set stimulusType to type 'start' until valid number of stimuli have been shown
       if (this.stimuliHistory.length < (N_BACK)) {
         stimulusType = 'start';
@@ -63,16 +63,16 @@ tatool
 
       this.trial.stimulusType = stimulusType;
       this.trial.correctResponse = (stimulusType === 'match') ? 1 : 0;
-	  
+
       this.cellData = {};
       this.cellData.gridPosition = gridPosition;
       this.cellData.stimulusValue = '';
       this.cellData.stimulusValueType = 'text';
       this.cellData.gridCellClass = 'spatialNBack_fillCell';
-	  
-	  var cell = gridService.createCell(cellData);
+
+	  var cell = this.mainGridService.createCell(this.cellData);
 	  this.mainGridService.addCell(cell);
-	  
+
       // update stimuli history
       this.stimuliHistory.unshift(gridPosition);
       if (this.stimuliHistory.length > N_BACK+1) {
